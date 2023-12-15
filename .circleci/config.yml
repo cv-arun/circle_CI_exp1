@@ -17,12 +17,12 @@ jobs:
 
       - run:
           name: flutter channel master
-          command: flutter channel master
+          command: flutter channel main
 
       - run:
           name: flutter upgrade
           command: flutter upgrade
-          
+
       - run:
           name: Install dependencies
           command: flutter pub get
