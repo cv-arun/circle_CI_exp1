@@ -16,8 +16,11 @@ jobs:
 
 
       - run:
-          name: flutter channel master
+          name: flutter channel beta create
           command: git checkout -b beta
+      - run:
+          name: flutter channel beta
+          command: flutter channel beta
 
       - run:
           name: flutter upgrade
