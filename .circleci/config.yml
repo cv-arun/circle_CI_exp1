@@ -14,6 +14,15 @@ jobs:
           keys:
             - flutter-packages-{{ checksum "pubspec.yaml" }}
 
+
+      - run:
+          name: flutter channel master
+          command: flutter channel master
+
+      - run:
+          name: flutter upgrade
+          command: flutter upgrade
+          
       - run:
           name: Install dependencies
           command: flutter pub get
