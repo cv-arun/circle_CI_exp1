@@ -72,14 +72,6 @@ jobs:
             - flutter-packages-{{ checksum "pubspec.yaml" }}
 
       - run:
-          name: flutter channel beta checkout
-          command: flutter channel
-
-      - run:
-          name: flutter upgrade
-          command: flutter upgrade
-
-      - run:
           name: Install dependencies
           command: flutter pub get
 
