@@ -1,41 +1,61 @@
 version: 2.1
+orbs:
+  android: circleci/android@1.0.3
+  flutter: circleci/flutter@2.0.0
 
-jobs:
-  build:
-    docker:
-      - image: cirrusci/flutter:latest
-
-    working_directory: ~/project
-
+commands:
+  custom_install_sdk:
+    description: |
+      Install Flutter SDK without doctor
+    parameters:
+      install-location:
+        default: ~/usr/development
+        description: Install path for the Flutter binaries.
+        type: string
+      version:
+        default: 3.16.0
+        description: The target version for the Flutter SDK.
+        type: string
     steps:
-      - checkout
-
       - restore_cache:
           keys:
-            - flutter-packages-{{ checksum "pubspec.yaml" }}
-
+            - flutter-<<parameters.version>>-{{ arch }}
       - run:
-          name: flutter channel beta checkout
-          command: flutter channel
+          command: |+
+            #!/usr/bin/env bash
 
-      - run:
-          name: flutter upgrade
-          command: flutter upgrade
+            INSTALL_LOCATION=$(eval "echo $ORB_EVAL_INSTALL_LOCATION")
 
-      - run:
-          name: Install dependencies
-          command: flutter pub get
+            if [ ! -d "$INSTALL_LOCATION/flutter" ]; then
+              mkdir -p "$INSTALL_LOCATION"
+              if [ "$(uname)" == 'Darwin' ]; then
+                curl -o flutter_sdk.zip https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_$ORB_VAL_FLUTTER_SDK_VERSION-stable.zip
+                unzip -qq flutter_sdk.zip -d "$INSTALL_LOCATION"
+                rm flutter_sdk.zip
+              elif uname -a | grep -q "Linux" ; then
+                curl -o flutter_sdk.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$ORB_VAL_FLUTTER_SDK_VERSION-stable.tar.xz
+                tar xf flutter_sdk.tar.xz -C "$INSTALL_LOCATION"
+                rm -f flutter_sdk.tar.xz
+              else
+                echo "This platform ($(uname -a)) is not supported."
+                exit 1
+              fi
+            fi
 
+            echo "export PATH=$INSTALL_LOCATION/flutter/bin:\$PATH" >> "$BASH_ENV"
+
+            # shellcheck source=/dev/null
+            source "$BASH_ENV"
+            which flutter
+
+          environment:
+            ORB_EVAL_INSTALL_LOCATION: <<parameters.install-location>>
+            ORB_VAL_FLUTTER_SDK_VERSION: <<parameters.version>>
+          name: Install Flutter SDK if it does not exists
       - save_cache:
-          key: flutter-packages-{{ checksum "pubspec.yaml" }}
+          key: flutter-<<parameters.version>>-{{ arch }}
           paths:
-            - .dart_tool
-            - .packages
-            - build
-
-      - run:
-          name: Run tests
-          command: flutter test
+            - <<parameters.install-location>>
 
 workflows:
   version: 2
