@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: flutter channel master
-          command: flutter channel main
+          command: flutter channel 
 
       - run:
           name: flutter upgrade
