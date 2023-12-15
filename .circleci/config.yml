@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/flutter@2.0.2
+      - image: cirrusci/flutter:2.19.6
 
     working_directory: ~/project
 
