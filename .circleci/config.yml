@@ -18,6 +18,14 @@ jobs:
             export PATH="$PATH:`pwd`/flutter/bin"
 
       - run:
+          name: upgrade
+          command: flutter upgrade
+
+      - run:
+          name: dart 
+          command: flutter pub global activate dart
+
+      - run:
           name: Install dependencies
           command: flutter pub get
 
