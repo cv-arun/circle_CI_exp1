@@ -10,42 +10,16 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - flutter-packages-{{ checksum "pubspec.yaml" }}
-
 
       - run:
-          name: flutter channel beta create
-          command: git checkout -b beta
-      - run:
-          name: flutter channel beta create
-          command: git add .
-      - run:
-          name: flutter channel beta create
-          command: git commit -m "Add modifications for my_channel"
-      - run:
-          name: flutter channel beta create
-          command: git push origin beta
-
-      - run:
-          name: flutter channel beta
-          command: flutter channel beta
-
-      - run:
-          name: flutter upgrade
-          command: flutter upgrade
+          name: Install Flutter
+          command: |
+            git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION --depth 1
+            export PATH="$PATH:`pwd`/flutter/bin"
 
       - run:
           name: Install dependencies
           command: flutter pub get
-
-      - save_cache:
-          key: flutter-packages-{{ checksum "pubspec.yaml" }}
-          paths:
-            - .dart_tool
-            - .packages
-            - build
 
       - run:
           name: Run tests
