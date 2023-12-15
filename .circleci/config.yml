@@ -10,10 +10,7 @@ jobs:
     steps:
       - checkout
 
-      # Set up deployment key
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:HqwunfBQiTISki1780OMKtVp97O0w665FKNWeTD6cl8"
+     
 
       - restore_cache:
           keys:
