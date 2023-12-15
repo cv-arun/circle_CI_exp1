@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:team2/homeScreen.dart';
+import 'package:flutter_app/screen1.dart';
+import 'package:flutter_app/screen2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,16 +9,15 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Team2 ',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
+      theme: ThemeData(primaryColor: Colors.blueGrey),
+      home:const Screen1(),
+      routes: {
+        '1':(context)=>const Screen1(),
+        '2':(context)=>const Screen2()
+      },
     );
   }
 }
-

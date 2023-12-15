@@ -1,6 +1,6 @@
 {
-    "name": "team2",
-    "short_name": "team2",
+    "name": "flutter_app",
+    "short_name": "flutter_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
