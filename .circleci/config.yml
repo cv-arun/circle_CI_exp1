@@ -19,6 +19,16 @@ jobs:
           name: flutter channel beta create
           command: git checkout -b beta
       - run:
+          name: flutter channel beta create
+          command: git add .
+      - run:
+          name: flutter channel beta create
+          command: git commit -m "Add modifications for my_channel"
+      - run:
+          name: flutter channel beta create
+          command: git push origin beta
+
+      - run:
           name: flutter channel beta
           command: flutter channel beta
 
