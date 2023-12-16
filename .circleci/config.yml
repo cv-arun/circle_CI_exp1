@@ -102,16 +102,16 @@ jobs:
       - flutter/install_pub:
           cache-version: v1
 
-      - run:
-          name: Flutter pub get
-          command: flutter pub get
+      # - run:
+      #     name: Flutter pub get
+      #     command: flutter pub get
 
-      - run:
-          name: Build IOS
-          command: flutter build ios
+      # - run:
+      #     name: Build IOS
+      #     command: flutter build ios
 
-      - store_artifacts:
-          path: build/ios/Runner/build/Release-iphoneos/Runner.app
+      # - store_artifacts:
+      #     path: build/ios/Runner/build/Release-iphoneos/Runner.app
 
   run_ios_simulator:
     docker:
