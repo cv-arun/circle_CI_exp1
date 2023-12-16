@@ -67,20 +67,20 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - flutter-packages-{{ checksum "pubspec.yaml" }}
+      # - restore_cache:
+      #     keys:
+      #       - flutter-packages-{{ checksum "pubspec.yaml" }}
 
       - run:
           name: Install dependencies
           command: flutter pub get
 
-      - save_cache:
-          key: flutter-packages-{{ checksum "pubspec.yaml" }}
-          paths:
-            - .dart_tool
-            - .packages
-            - build
+      # - save_cache:
+      #     key: flutter-packages-{{ checksum "pubspec.yaml" }}
+      #     paths:
+      #       - .dart_tool
+      #       - .packages
+      #       - build
 
       - run:
           name: Run tests
