@@ -1,4 +1,5 @@
 version: 2.1
+
 orbs:
   android: circleci/android@1.0.3
   flutter: circleci/flutter@2.0.0
@@ -57,37 +58,65 @@ commands:
           paths:
             - <<parameters.install-location>>
 
-jobs:
-  build:
-    docker:
-      - image: cirrusci/flutter:latest
 
-    working_directory: ~/project
+jobs:
+  build_android:
+    executor:
+      name: android/android-machine
+      resource-class: medium
+    
+    steps:
+      - checkout
+
+      - custom_install_sdk: 
+          version: 3.16.0
+
+      - flutter/install_pub:
+          cache-version: v1
+
+      - run:
+          name: Flutter pub get
+          command: |
+            flutter pub get
+
+      - run:
+          name: Build APK
+          command: |
+            flutter build apk
+
+      - store_artifacts:
+          path: build/app/outputs/flutter-apk/app-release.apk
+  build_ios:
+    macos:
+      xcode: 15.0.0
 
     steps:
       - checkout
 
-      # - restore_cache:
-      #     keys:
-      #       - flutter-packages-{{ checksum "pubspec.yaml" }}
+      - run: xcodebuild -version
+
+      - custom_install_sdk: 
+          version: 3.16.0
+
+      - flutter/install_pub:
+          cache-version: v1
 
       - run:
-          name: Install dependencies
-          command: flutter pub get
-
-      - save_cache:
-          key: flutter-packages-{{ checksum "pubspec.yaml" }}
-          paths:
-            - .dart_tool
-            - .packages
-            - build
+          name: Flutter pub get
+          command: |
+            flutter pub get
 
       - run:
-          name: Run tests
-          command: flutter test            
+          name: Build IOS
+          command: |
+            flutter build ios
+      
+      - store_artifacts:
+          path: build/ios/Runner/build/Release-iphoneos/Runner.app
 
 workflows:
   version: 2
-  build:
+  build_android_ios:
     jobs:
-      - build
+      - build_android
+      - build_ios
