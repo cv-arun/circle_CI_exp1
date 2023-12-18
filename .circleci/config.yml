@@ -112,8 +112,8 @@ jobs:
           command: |
             flutter pub get
       - run:
-          name: ls
-          command: ls
+          name: Ruby version
+          command: ruby -v
 
       - run:
           name: Set Development Team
