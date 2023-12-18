@@ -121,7 +121,7 @@ jobs:
       - run:
           name: Build IOS with Fastlane
           command: |
-           cd ios && fastlane beta
+           cd ios && fastlane ios beta
       
       - store_artifacts:
           path: build/ios/Runner/build/Release-iphoneos/Runner.app
