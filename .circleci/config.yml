@@ -116,8 +116,8 @@ jobs:
           command: ls
 
       - run:
-        name: Set Development Team
-        command: fastlane set_development_team    
+          name: Set Development Team
+          command: fastlane set_development_team  
 
       - run:
           name: Build IOS with Fastlane
