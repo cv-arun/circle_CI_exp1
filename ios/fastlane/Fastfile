@@ -1,7 +1,16 @@
 platform :ios do
     lane :beta do
       increment_build_number  # Increment the build number
+      set_development_team
       build_ios_app           # Build the iOS app
       # upload_to_testflight    # Upload to TestFlight
     end
+    lane :set_development_team do
+      project_path = Dir["*.xcodeproj"].first
+      update_project_team(
+        path: project_path,
+        teamid: ENV["1234567890"]
+      )
+    end
+  
   end

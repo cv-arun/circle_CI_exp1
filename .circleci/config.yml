@@ -114,6 +114,11 @@ jobs:
       - run:
           name: ls
           command: ls
+      - run:
+        name: Set Development Team
+        command: fastlane set_development_team
+        env:
+          DEVELOPMENT_TEAM_ID: "1234567890"    
 
       - run:
           name: Build IOS with Fastlane
