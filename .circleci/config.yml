@@ -7,11 +7,11 @@ orbs:
 commands:
   custom_install_sdk:
     description: |
-      Install Flutter SDK without doctor
+     Install Flutter SDK and Fastlane without doctor
     parameters:
       install-location:
         default: ~/usr/development
-        description: Install path for the Flutter binaries.
+        description: Install path for the Flutter and Fastlane binaries.
         type: string
       version:
         default: 3.16.0
@@ -21,6 +21,11 @@ commands:
       - restore_cache:
           keys:
             - flutter-<<parameters.version>>-{{ arch }}
+      - run:
+          name: Install Fastlane
+          command: |
+            gem install fastlane -NV
+
       - run:
           command: |+
             #!/usr/bin/env bash
@@ -108,16 +113,35 @@ jobs:
             flutter pub get
 
       - run:
-          name: Build IOS
+          name: Build IOS with Fastlane
           command: |
-            flutter build ios
+            fastlane beta
       
       - store_artifacts:
           path: build/ios/Runner/build/Release-iphoneos/Runner.app
+          
+  install_fastlane:
+    macos:
+      xcode: 15.0.0
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Fastlane
+          command: |
+            gem install bundler -v '< 3' && bundle install
+            fastlane install_plugins
+
+
 
 workflows:
   version: 2
   build_android_ios:
     jobs:
-      - build_android
-      - build_ios
+      # - build_android
+      - build_ios:
+        requires:
+           - install_fastlane
+        macos:
+           xcode: 15.0.0
