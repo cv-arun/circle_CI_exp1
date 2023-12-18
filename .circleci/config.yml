@@ -111,6 +111,9 @@ jobs:
           name: Flutter pub get
           command: |
             flutter pub get
+      - run:
+          name: current directory
+          command: pwd
 
       - run:
           name: Build IOS with Fastlane
@@ -139,5 +142,5 @@ workflows:
   version: 2
   build_android_ios:
     jobs:
-      - build_android
+      # - build_android
       - build_ios
