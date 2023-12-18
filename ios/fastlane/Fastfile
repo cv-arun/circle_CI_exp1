@@ -9,7 +9,7 @@ platform :ios do
       project_path = Dir["*.xcodeproj"].first
       update_project_team(
         path: project_path,
-        teamid: ENV["1234567890"]
+        teamid:"1234567890"
       )
     end
   
