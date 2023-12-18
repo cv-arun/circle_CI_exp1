@@ -115,8 +115,8 @@ jobs:
           command: |
             flutter pub get
       - run:
-          name: pwd
-          command: pwd
+          name: ls
+          command: ls
 
       - run:
           name: Build IOS with Fastlane
