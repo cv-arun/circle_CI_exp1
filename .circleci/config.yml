@@ -114,6 +114,9 @@ jobs:
       - run:
           name: checkot to ios
           command: cd ios
+      - run:
+          name: pwd
+          command: pwd
 
       - run:
           name: Build IOS with Fastlane
