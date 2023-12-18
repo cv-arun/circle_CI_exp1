@@ -112,8 +112,8 @@ jobs:
           command: |
             flutter pub get
       - run:
-          name: current directory
-          command: ls
+          name: checkot to ios
+          command: cd ios
 
       - run:
           name: Build IOS with Fastlane
