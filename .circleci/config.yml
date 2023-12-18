@@ -99,6 +99,9 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: checkot to ios
+          command: cd ios
       - run: xcodebuild -version
 
       - custom_install_sdk: 
@@ -112,9 +115,6 @@ jobs:
           command: |
             flutter pub get
       - run:
-          name: checkot to ios
-          command: cd ios
-      - run:
           name: pwd
           command: pwd
 
@@ -125,6 +125,7 @@ jobs:
       
       - store_artifacts:
           path: build/ios/Runner/build/Release-iphoneos/Runner.app
+    working_directory: ~/project  
           
   install_fastlane:
     macos:
