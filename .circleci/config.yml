@@ -121,11 +121,10 @@ jobs:
       - run:
           name: Build IOS with Fastlane
           command: |
-            fastlane beta
+           cd ios && fastlane beta
       
       - store_artifacts:
           path: build/ios/Runner/build/Release-iphoneos/Runner.app
-    working_directory: ~/project/ios  
           
   install_fastlane:
     macos:
