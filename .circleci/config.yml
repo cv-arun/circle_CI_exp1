@@ -147,4 +147,4 @@ workflows:
   build_android_ios:
     jobs:
       - build_ios
-      - build_android
+      # - build_android

@@ -2,6 +2,7 @@ platform :ios do
     lane :beta do
       increment_build_number  # Increment the build number
       set_development_team
+      fastlane action update_project_team
       build_and_set_identifier
       build_ios_app           # Build the iOS app
       # upload_to_testflight    # Upload to TestFlight
