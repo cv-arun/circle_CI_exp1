@@ -7,7 +7,7 @@ platform :ios do
       # upload_to_testflight    # Upload to TestFlight
     end
     lane :set_development_team do
-      project_path = Dir["*.xcodeproj"].first
+      project_path = '../Runner.xcodeproj'
       update_project_team(
         path: project_path,
         teamid:"J6Q6Y9VYC4"
@@ -15,8 +15,8 @@ platform :ios do
       end
     lane :build_and_set_identifier do
         update_info_plist(
-          xcodeproj: Dir["*.xcodeproj"].first,
-          plist_path: Dir["*.plist"].first,
+          xcodeproj: '../Runner.xcodeproj',
+          plist_path: '../Runner/Info.plist',
           block: proc do |plist|
             plist['CFBundleIdentifier'] = 'com.instacoach.coachmanager'
         end
