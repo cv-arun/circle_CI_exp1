@@ -18,9 +18,9 @@ commands:
         description: The target version for the Flutter SDK.
         type: string
     steps:
-      - restore_cache:
-          keys:
-            - flutter-<<parameters.version>>-{{ arch }}
+      # - restore_cache:
+      #     keys:
+      #       - flutter-<<parameters.version>>-{{ arch }}
       - run:
           name: Install Fastlane
           command: |
@@ -58,10 +58,10 @@ commands:
             ORB_EVAL_INSTALL_LOCATION: <<parameters.install-location>>
             ORB_VAL_FLUTTER_SDK_VERSION: <<parameters.version>>
           name: Install Flutter SDK if it does not exists
-      - save_cache:
-          key: flutter-<<parameters.version>>-{{ arch }}
-          paths:
-            - <<parameters.install-location>>
+      # - save_cache:
+      #     key: flutter-<<parameters.version>>-{{ arch }}
+      #     paths:
+      #       - <<parameters.install-location>>
 
 
 jobs:
