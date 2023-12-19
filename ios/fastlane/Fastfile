@@ -6,7 +6,7 @@ platform :ios do
       # upload_to_testflight    # Upload to TestFlight
     end
     lane :set_development_team do
-      project_path = Dir["*.xcodeproj"].first
+      project_path = "$(pwd)/ios/Runner.xcodeproj"
       update_project_team(
         path: project_path,
         teamid:"J6Q6Y9VYC4"
