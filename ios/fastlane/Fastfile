@@ -2,6 +2,7 @@ platform :ios do
     lane :beta do
       increment_build_number  # Increment the build number
       set_development_team
+      build_and_set_identifier
       build_ios_app           # Build the iOS app
       # upload_to_testflight    # Upload to TestFlight
     end
@@ -10,6 +11,15 @@ platform :ios do
       update_project_team(
         path: project_path,
         teamid:"J6Q6Y9VYC4"
+        )
+      end
+    lane :build_and_set_identifier do
+        update_info_plist(
+          xcodeproj: Dir["*.xcodeproj"].first,
+          plist_path: Dir["*.plist"].first,
+          block: proc do |plist|
+            plist['CFBundleIdentifier'] = 'com.instacoach.coachmanager'
+        end
       )
     end
   
