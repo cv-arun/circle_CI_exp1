@@ -2,7 +2,13 @@ platform :ios do
     lane :beta do
       increment_build_number  # Increment the build number
       set_development_team
-      build_ios_app           # Build the iOS app
+      build_app(
+        export_method: "app-store",
+        export_options: {
+          provisioningProfiles: { 
+            "com.example.flutter" => "Xcode Managed Profile"
+          }
+        })          # Build the iOS app
       # upload_to_testflight    # Upload to TestFlight
     end
     lane :set_development_team do
