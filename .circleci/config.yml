@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  # android: circleci/android@1.0.3
+  android: circleci/android@1.0.3
   flutter: circleci/flutter@2.0.0
 
 commands:
@@ -115,9 +115,9 @@ jobs:
           name: Ruby version
           command: ruby -v
 
-      - run:
-          name: Set Development Team
-          command: cd ios && fastlane ios set_development_team  
+      # - run:
+      #     name: Set Development Team
+      #     command: cd ios && fastlane ios set_development_team  
 
       - run:
           name: Build IOS with Fastlane
