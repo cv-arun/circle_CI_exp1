@@ -28,6 +28,6 @@ jobs:
         with:
           ruby-version: '3.1'  # Adjust if needed for Fastlane
       - run: gem install fastlane
-      - run: bundle install
+      # - run: bundle install
       - run: cd ios
       - run: fastlane release  # Replace with your desired lane
