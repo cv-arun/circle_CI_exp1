@@ -1,0 +1,5 @@
+# Specify the source for downloading gems
+source "https://rubygems.org"
+
+# Declare the Fastlane gem
+gem "fastlane"
