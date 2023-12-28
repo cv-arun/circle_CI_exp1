@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.blueGrey),
-      home:const Screen1(),
+      // home:const Screen1(),
       // routes: {
       //   '1':(context)=>const Screen1(),
       //   '2':(context)=>const Screen2()
