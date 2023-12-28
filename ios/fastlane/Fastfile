@@ -1,22 +1,5 @@
-platform :ios do
-    lane :beta do
-      increment_build_number  # Increment the build number
-      get_certificates           # invokes cert
-      get_provisioning_profile
-      # set_development_team
-      build_app(
-        export_method: "app-store"
-        )          # Build the iOS app
-      # upload_to_testflight    # Upload to TestFlight
-    end
-    lane :set_development_team do
-      
-      project_path = Dir["*.xcodeproj"].first
-      update_project_team(
-        path: project_path,
-        teamid:"J6Q6Y9VYC4"
-      )
-      
-    end
-  
-  end
+lane :release do
+  sync_code_signing(type: "appstore")  # If using Fastlane Match
+  build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+  upload_to_testflight
+end
