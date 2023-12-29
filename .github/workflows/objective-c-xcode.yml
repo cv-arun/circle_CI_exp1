@@ -37,7 +37,7 @@ jobs:
         path: build/app/outputs/flutter-apk/app-release.apk
 
     - name: Deploy to Play Store
-      uses: wzieba/Fastlane-Action@v3
+      uses: maierj/fastlane-action@v3.0.0
       with:
         lane: deploy # Change this to your Fastlane lane
 
