@@ -1,0 +1,19 @@
+lane :deploy do
+    gradle(
+      task: 'bundleRelease',
+      build_type: 'Release',
+      print_command: false
+    )
+  
+    upload_to_play_store(
+      track: 'internal',
+      json_key: ENV['PLAY_JSON_KEY'], # Set PLAY_JSON_KEY as a secret in GitHub Actions
+      package_name: 'your.package.name',
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_large_icon: true,
+      release_status: 'draft'
+    )
+  end
+  
