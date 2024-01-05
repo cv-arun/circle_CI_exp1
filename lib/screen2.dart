@@ -7,7 +7,7 @@ class Screen2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(children: [ElevatedButton(onPressed: (){Navigator.pop(context);}, child:const Text('go back'))],),
+      body: Column(children: [ElevatedButton(onPressed: (){Navigator.pop(context);}, child:const Text('go back2'))],),
     );
   }
 }
