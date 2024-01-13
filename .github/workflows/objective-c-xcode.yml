@@ -67,9 +67,9 @@ jobs:
 
     - name: Commit Version Bump and File Updates
       run: |
-        git checkout $GITHUB_REF
+        git checkout dev
         git config --local user.email "cvaruncv1998@gmail.com"
         git config --local user.name "cv-arun"
         git add pubspec.yaml versions/
         git commit -m "Bump version to $new_version and update version files"
-        git push -u origin $GITHUB_REF
+        git push -u origin dev
