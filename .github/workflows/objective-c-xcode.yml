@@ -67,10 +67,10 @@ jobs:
 
     - name: Commit Version Bump and File Updates
       run: |
-        ref_segment=($(echo $GITHUB_REF | tr '/' ' '))
-        git checkout ${ref_segment[0]}
+        branch_name=$(echo "$GITHUB_REF" | cut -d'/' -f3)
+        git checkout $branch_name
         git config --local user.email "cvaruncv1998@gmail.com"
         git config --local user.name "cv-arun"
         git add pubspec.yaml versions/
         git commit -m "Bump version to $new_version and update version files"
-        git push -u origin ${ref_segment[0]}
+        git push -u origin $branch_name
