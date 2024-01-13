@@ -40,7 +40,7 @@ jobs:
             new_version="$major.$minor.$((patch + 1))"
           else
             # No specific keyword found, No version bump 
-            new_version="$major.$minor.$patch)"
+            new_version="$major.$minor.$patch"
           fi
 
           sed -i'' -e "s/^version: .*/version: $new_version/" pubspec.yaml
