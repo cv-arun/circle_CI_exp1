@@ -44,13 +44,27 @@ jobs:
 
       working-directory: ./
 
-    - name: Commit Version Bump
+    - name: Create Versions Directory and Files
       run: |
-       echo "Updating local pubspec"
+        if [ ! -d "versions" ]; then
+          mkdir versions
+        fi
+
+        touch versions/dev.txt
+        touch versions/prod.txt
+        touch versions/uat.txt
+
+        current_date=$(date +"%Y-%m-%d")
+
+        echo "Version: $new_version, Date: $current_date" >> versions/dev.txt
+        echo "Version: $new_version, Date: $current_date" >> versions/prod.txt
+        echo "Version: $new_version, Date: $current_date" >> versions/uat.txt
+
+    - name: Commit Version Bump and File Updates
+      run: |
         git checkout main
-        git branch -a
         git config --local user.email "cvaruncv1998@gmail.com"
         git config --local user.name "cv-arun"
-        git add pubspec.yaml
-        git commit -m "Bump version to $NEW_VERSION"
+        git add pubspec.yaml versions/
+        git commit -m "Bump version to $new_version and update version files"
         git push -u origin main
