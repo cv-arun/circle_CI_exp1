@@ -18,7 +18,7 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.10.4'  # Replace with your desired Flutter version
+        flutter-version: '3.10.4'
 
     - name: Bump Version
       run: |
@@ -39,8 +39,8 @@ jobs:
           elif echo "$commit_message" | grep -qi "patch"; then
             new_version="$major.$minor.$((patch + 1))"
           else
-            # No specific keyword found, default to patch 
-            new_version="$major.$minor.$((patch + 1))"
+            # No specific keyword found, No version bump 
+            new_version="$major.$minor.$patch)"
           fi
 
           sed -i'' -e "s/^version: .*/version: $new_version/" pubspec.yaml
@@ -58,9 +58,9 @@ jobs:
         updated_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
 
         if [ $GITHUB_REF = "refs/heads/dev" ]; then
-          echo "Date: $current_date ,Version: $updated_version " >> versions/dev.txt
+          echo " Last updated: $current_date , Version: $updated_version"  > versions/dev.txt
         elif [ $GITHUB_REF = "refs/heads/qa" ]; then
-          echo "Date: $current_date ,Version: $updated_version" >> versions/uat.txt
+         echo "Last updated: $current_date , Version: $updated_version"  > versions/uat.txt
         elif [ $GITHUB_REF = "refs/heads/main" ]; then
           echo "Date: $current_date ,Version: $updated_version" >> versions/prod.txt
         fi
