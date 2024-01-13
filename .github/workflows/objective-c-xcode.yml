@@ -3,6 +3,8 @@ name: Bump Version and Commit
 on:
   push:
     branches:
+      - dev
+      - qa
       - main
 
 jobs:
@@ -20,27 +22,29 @@ jobs:
 
     - name: Bump Version
       run: |
-        flutter pub get
-        current_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
-        version_segments=($(echo $current_version | tr '.' ' '))
-        major=${version_segments[0]}
-        minor=${version_segments[1]}
-        patch=${version_segments[2]}
+        if [ $GITHUB_REF = "refs/heads/dev" ]; then
+          flutter pub get
+          current_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
+          version_segments=($(echo $current_version | tr '.' ' '))
+          major=${version_segments[0]}
+          minor=${version_segments[1]}
+          patch=${version_segments[2]}
 
-        # Determine version increment type from commit messages
-        commit_message=$(git log -1 --pretty=%B)
-        if echo "$commit_message" | grep -qi "major"; then
-          new_version="$((major + 1)).0.0"
-        elif echo "$commit_message" | grep -qi "minor"; then
-          new_version="$major.$((minor + 1)).0"
-        elif echo "$commit_message" | grep -qi "patch"; then
-          new_version="$major.$minor.$((patch + 1))"
-        else
-          # No specific keyword found, default to patch
-          new_version="$major.$minor.$((patch + 1))"
+          # Determine version increment type from commit messages
+          commit_message=$(git log -1 --pretty=%B)
+          if echo "$commit_message" | grep -qi "major"; then
+            new_version="$((major + 1)).0.0"
+          elif echo "$commit_message" | grep -qi "minor"; then
+            new_version="$major.$((minor + 1)).0"
+          elif echo "$commit_message" | grep -qi "patch"; then
+            new_version="$major.$minor.$((patch + 1))"
+          else
+            # No specific keyword found, default to patch 
+            new_version="$major.$minor.$((patch + 1))"
+          fi
+
+          sed -i'' -e "s/^version: .*/version: $new_version/" pubspec.yaml
         fi
-
-        sed -i'' -e "s/^version: .*/version: $new_version/" pubspec.yaml
 
       working-directory: ./
 
@@ -50,23 +54,23 @@ jobs:
           mkdir versions
         fi
 
-        touch versions/dev.txt
-        touch versions/prod.txt
-        touch versions/uat.txt
+        current_date=$(date +"%Y-%m-%d %H:%M:%S")
+        updated_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
 
-        current_date=$(date +"%Y-%m-%d")
-
-        bumped_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
-
-        echo "Version:  Date: $current_date , $bumped_version " >> versions/dev.txt
-        echo "Version:  Date: $current_date , $bumped_version " >> versions/prod.txt
-        echo "Version:  Date: $current_date , $bumped_version" >> versions/uat.txt
+        if [ $GITHUB_REF = "refs/heads/dev" ]; then
+          echo "Date: $current_date ,Version: $updated_version " >> versions/dev.txt
+        elif [ $GITHUB_REF = "refs/heads/qa" ]; then
+          echo "Date: $current_date ,Version: $updated_version" >> versions/uat.txt
+        elif [ $GITHUB_REF = "refs/heads/main" ]; then
+          echo "Date: $current_date ,Version: $updated_version" >> versions/prod.txt
+        fi
 
     - name: Commit Version Bump and File Updates
       run: |
-        git checkout main
+        branch_name=$(echo "$GITHUB_REF" | cut -d'/' -f3)
+        git checkout $branch_name
         git config --local user.email "cvaruncv1998@gmail.com"
         git config --local user.name "cv-arun"
         git add pubspec.yaml versions/
         git commit -m "Bump version to $new_version and update version files"
-        git push -u origin main
+        git push -u origin $branch_name
