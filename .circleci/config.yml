@@ -26,7 +26,7 @@ commands:
           command: |
             gem install fastlane -NV
 
-      - run:
+      - run:    
           command: |+
             #!/usr/bin/env bash
 
