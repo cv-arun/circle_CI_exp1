@@ -58,9 +58,9 @@ jobs:
 
         bumped_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
 
-        echo "Version: $bumped_version, Date: $current_date" >> versions/dev.txt
-        echo "Version: $bumped_version, Date: $current_date" >> versions/prod.txt
-        echo "Version: $bumped_version, Date: $current_date" >> versions/uat.txt
+        echo "Version:  Date: $current_date , $bumped_version " >> versions/dev.txt
+        echo "Version:  Date: $current_date , $bumped_version " >> versions/prod.txt
+        echo "Version:  Date: $current_date , $bumped_version" >> versions/uat.txt
 
     - name: Commit Version Bump and File Updates
       run: |
