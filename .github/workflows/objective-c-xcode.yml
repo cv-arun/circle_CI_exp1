@@ -38,9 +38,6 @@ jobs:
             new_version="$major.$((minor + 1)).0"
           elif echo "$commit_message" | grep -qi "patch"; then
             new_version="$major.$minor.$((patch + 1))"
-          else
-            # No specific keyword found, default to patch 
-            new_version="$major.$minor.$((patch + 1))"
           fi
 
           sed -i'' -e "s/^version: .*/version: $new_version/" pubspec.yaml
@@ -58,9 +55,9 @@ jobs:
         updated_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
 
         if [ $GITHUB_REF = "refs/heads/dev" ]; then
-          echo "Date: $current_date ,Version: $updated_version " >> versions/dev.txt
+          echo "Last updated: $current_date ,Latest version: $updated_version " > versions/dev.txt
         elif [ $GITHUB_REF = "refs/heads/qa" ]; then
-          echo "Date: $current_date ,Version: $updated_version" >> versions/uat.txt
+         echo "Last updated: $current_date ,Latest version: $updated_version "  > versions/uat.txt
         elif [ $GITHUB_REF = "refs/heads/main" ]; then
           echo "Date: $current_date ,Version: $updated_version" >> versions/prod.txt
         fi
