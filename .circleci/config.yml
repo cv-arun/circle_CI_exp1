@@ -7,7 +7,7 @@ orbs:
 commands:
   custom_install_sdk:
     description: |
-     Install Flutter SDK and Fastlane without doctor
+     Install Flutter SDK and Fastlane without doctor 2
     parameters:
       install-location:
         default: ~/usr/development
