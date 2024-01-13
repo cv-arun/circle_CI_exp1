@@ -39,7 +39,7 @@ jobs:
           elif echo "$commit_message" | grep -qi "patch"; then
             new_version="$major.$minor.$((patch + 1))"
           else
-            # No specific keyword found, No version bump
+            # No specific keyword found, No version bump 
             new_version="$major.$minor.$patch)"
           fi
 
