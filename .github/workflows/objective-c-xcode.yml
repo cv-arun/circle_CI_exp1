@@ -18,7 +18,7 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.10.4'  # Replace with your desired Flutter version
+        flutter-version: '3.10.4'
 
     - name: Bump Version
       run: |
