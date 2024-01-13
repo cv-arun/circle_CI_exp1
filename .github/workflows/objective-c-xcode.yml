@@ -54,6 +54,8 @@ jobs:
         current_date=$(date +"%Y-%m-%d %H:%M:%S")
         updated_version=$(awk '/^version:/ {print $2}' pubspec.yaml)
 
+        echo "version is $updated_version "
+
         if [ $GITHUB_REF = "refs/heads/dev" ]; then
           echo "Last updated: $current_date ,Latest version: $updated_version " > versions/dev.txt
         elif [ $GITHUB_REF = "refs/heads/qa" ]; then
