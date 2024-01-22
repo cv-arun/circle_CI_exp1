@@ -8,7 +8,7 @@ class Screen1 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Column(children: [
-        ElevatedButton(onPressed: (){}, child:const Text('click to screen '))
+        ElevatedButton(onPressed: (){}, child:const Text('click to screen3 '))
       ],),
     );
   }
