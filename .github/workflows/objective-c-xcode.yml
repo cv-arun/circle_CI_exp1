@@ -15,14 +15,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Cache dependencies
+    - name: Cache Flutter SDK
       uses: actions/cache@v2
       with:
         path: |
           ~/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-
+          ${{ runner.os }}-flutter-      
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
