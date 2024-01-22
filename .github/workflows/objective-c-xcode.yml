@@ -35,7 +35,6 @@ jobs:
         if [ $GITHUB_REF = "refs/heads/dev" ]; then
           flutter pub get
           current_version=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" ios/Runner/info.plist)
-          echo $current_version
           version_segments=($(echo $current_version | tr '.' ' '))
           major=${version_segments[0]}
           minor=${version_segments[1]}
